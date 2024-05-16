@@ -1,0 +1,8 @@
+.vscode/
+.venv/
+DATA/
+sl_class/
+*.pdf
+*.idea/
+labs/
+ex-class-1/
