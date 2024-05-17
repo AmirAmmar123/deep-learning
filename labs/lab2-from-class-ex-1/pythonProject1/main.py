@@ -26,6 +26,9 @@ def gd_ol(X, y, theta, alpha, num_iter):
           yi = y[randindex[i],: ]
           delta = np.dot(xi, theta) - yi
           theta = theta - alpha * delta * xi.T
+          J_iter[k] = compute_cost(X, y, theta)
+          k += 1 
+    return theta, J_iter 
 
 
 if __name__ == '__main__':
@@ -49,6 +52,12 @@ if __name__ == '__main__':
     onesVec = np.ones((m,1))
 
     X = np.concatenate((onesVec, x), axis=1) ## concate verticals
+    
+    alpha = 0.0001
+    num_iter = 100
+    n = X.shape[1]
+    theta = np.zeros((n,1))
+    theta, J_iter = gd_ol(X, y, theta, alpha, num_iter)
 
 
 

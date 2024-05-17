@@ -32,7 +32,7 @@ class LR:
       self.X, self.Y = args
 
    def plotLR(self):
-      X = self.X.reshape(-1, 1)  # Reshape X to a 2D array if needed
+      X = self.X.reshape(-1, 1)
       model = LinearRegression()
       model.fit(X, self.Y)
       Y_pred = model.predict(X)
@@ -89,8 +89,12 @@ def gd(X, y, theta, alpha, num_iter, method):
             votcf.setTheta(theta)
             J_iter[k] = votcf.J()
          elif method == 'batch':
-            for j in range(3):
-               theta[j, 0] -= (alpha / m) * d_j(theta, X, y, j)
+            xi = X
+            yi = y
+            delta = np.dot(xi, theta) - yi
+            theta -= alpha * delta * xi
+            votcf.setTheta(theta)
+            J_iter[k] = votcf.J()
             votcf.setTheta(theta)
             J_iter[k] = votcf.J()
          k += 1
@@ -167,5 +171,5 @@ if __name__ == '__main__':
    theta = mlexper.predictTheta('online', 0.00001, 1000)
    PolynomialRegressionofSecondOrder(lr.X, mlexper.y, theta)
 
-   
+
    #from the results we can see that there is differencies between the Linear Regression prediction and Polynomial Regression of Second Order prediction
