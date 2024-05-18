@@ -105,7 +105,7 @@ class VectorizationOfTheCostFunc:
       self.z = np.dot(self.X_mat, self.Theta_vec) - self.Y_vec
 
    def J(self):
-      return (1/2*self.m) *  np.dot(self.z.T, self.z)
+      return (1/(2*self.m)) *  np.dot(self.z.T, self.z)
 
    def setTheta(self, otherTheta):
       self.Theta_vec = otherTheta
