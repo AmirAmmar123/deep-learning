@@ -50,7 +50,7 @@ class MinibatchGradientDescent:
       return self.theta
 
    def deJ_deThetaj(self, subX, subY):
-      return  np.dot(subX,self.theta)  - subY
+      return  np.dot(subX,self.theta) - subY
 
 
    def randomSubVector(self):
@@ -102,7 +102,7 @@ class VectorizationOfTheCostFunc:
       self.X_mat = X_mat
       self.Y_vec = Y_vec
       self.m = Y_vec.shape[0]
-      self.z = np.dot(self.X_mat, self.Theta_vec)
+      self.z = np.dot(self.X_mat, self.Theta_vec) - self.Y_vec
 
    def J(self):
       return (1/2*self.m) *  np.dot(self.z.T, self.z)
@@ -115,12 +115,12 @@ class VectorizationOfTheCostFunc:
 if __name__ == '__main__':
    RD = ReadData( path= './DATA/faithful.txt')
    of = OldFaithful(RD)
-   of.plot_data()
-   for alpha in [ 0.01, 0.001, 0.02, 0.002, 0.03, 0.003 ] :
+   # of.plot_data()
+   for alpha in [ 0.01, 0.001, 0.02, 0.002, ] :
       mbgd = MinibatchGradientDescent(of,alpha, np.array( [ [0.5], [10] ] ), 30, 2000)
       LRP = LinearRegressionPlotter(of, mbgd)
       LRP.plotLinearRegression()
-      V = VectorizationOfTheCostFunc(mbgd.theta, mbgd.X, mbgd.Y).J()
+      V = VectorizationOfTheCostFunc(mbgd.theta, mbgd.X, mbgd.Y.reshape(mbgd.Y.shape[0],1)).J()
       print(f'cost function value for theta = {mbgd.theta[0,0], mbgd.theta[1,0]}, J(theta) = {V}')
       print(f'result for alpha = {alpha}\n--------------------------------------------------------------\n')
 

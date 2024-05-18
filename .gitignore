@@ -8,3 +8,6 @@ labs/
 ex-class-1/
 token_30_days_16_06_24_exp
 HW/HW1/pythonProject/__pycache__/
+$/*.zip
+*/*.zip
+HW/HW1/*.zip
