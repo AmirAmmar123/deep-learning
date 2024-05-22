@@ -35,7 +35,7 @@ def data_normalization(X,y):
     meany = np.mean(y, axis=0).reshape(-1,1)
     std_deviationy = np.std(y, axis=0).reshape(-1,1)
 
-    y[:,0] = (y[:,0] - meany[0,0]) /std_deviationy[0,0]
+    # y[:,0] = (y[:,0] - meany[0,0]) /std_deviationy[0,0] after a discussion with Yizhar, there is no need to normalize the Y
 
     return X,y,meanX,std_deviationX,meany,std_deviationy
 
