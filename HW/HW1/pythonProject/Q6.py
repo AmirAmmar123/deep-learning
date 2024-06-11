@@ -19,8 +19,8 @@ def plot(X, y, x_title, y_title, y_pred=None):
     plt.show()
 
 def metabolic_rate_log(mass, theta):
-    log_mass = math.log10(mass)
-    return theta[0, 0] + theta[1, 0] * log_mass
+
+    return theta[0, 0] + theta[1, 0] * np.log(mass)
 
 def LR(X, y):
     model = LinearRegression()
@@ -55,7 +55,7 @@ if __name__ == "__main__":
     # Calculate metabolic rate for a 250 kg mammal in Joules
     mass_250_kg = 250
     log_metabolic_rate_250_kg = metabolic_rate_log(mass_250_kg, theta)
-    metabolic_rate_250_kg = math.pow(10, log_metabolic_rate_250_kg)  # Joules per day
+    metabolic_rate_250_kg = np.exp(log_metabolic_rate_250_kg)  # Joules per day
 
     # Convert to Calories
     calories_250_kg = joules_to_calories(metabolic_rate_250_kg)

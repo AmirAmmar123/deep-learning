@@ -8,7 +8,7 @@ from sklearn.linear_model import LinearRegression
 class ReadData:
    def __init__(self, path = './DATA/Cricket.npz'):
       self.path = path
-      self.data = self.data = np.loadtxt(self.path)
+      self.data = np.loadtxt(self.path)
    def load(self):
       return self.data
 
