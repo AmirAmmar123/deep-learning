@@ -20,9 +20,11 @@ def sigmoid(z):
     y = 1 / (1 + np.exp(-z))
     return y
 
-z = np.linspace(-5, 5, 1000)
-y = sigmoid(z)
-plt.plot(z, y), plt.grid(axis = 'both')
+def plot_sigmiod():
+
+    z = np.linspace(-5, 5, 1000)
+    y = sigmoid(z)
+    plt.plot(z, y), plt.grid(axis = 'both')
 
 def compute_cost(X, y, theta):
     """
