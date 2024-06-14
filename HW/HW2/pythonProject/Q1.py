@@ -4,7 +4,8 @@ import pandas as pd
 from Material.Admittance_class_2024 import grad_descent_logreg, plot_log_reg_line, compute_cost
 
 
-def calculate_probabilities(english_test_grade: float, math_test_grade: float, not_norm_theta: np.array, norm_theta: np.array, meanX: np.array, std_deviationX: np.array) -> None:
+def calculate_probabilities(english_test_grade: float, math_test_grade: float, not_norm_theta: np.array,
+                            norm_theta: np.array, meanX: np.array, std_deviationX: np.array) -> None:
     """
     Calculate and print the acceptance probabilities for given test grades.
     """
@@ -75,7 +76,6 @@ def add_onec_vec(X_orig: np.array, m: int) -> np.array:
     return np.concatenate((np.ones((m, 1)), X_orig), axis=1)
 
 
-
 def initialize_log_reg_params(X_orig: np.array, y: np.array, m: int) -> tuple:
     """
     Initialize logistic regression parameters.
@@ -95,7 +95,9 @@ def initialize_log_reg_params(X_orig: np.array, y: np.array, m: int) -> tuple:
     return X, y, theta
 
 
-def not_normolized(Xdata: pd.DataFrame, X_orig: np.array, y: np.array, m: int, shape1: str = 'ro', shape2: str = 'go') -> np.array:
+def not_normolized(Xdata: pd.DataFrame, X_orig: np.array, y: np.array, m: int, shape1: str = 'ro'
+                   , shape2: str = 'go',
+                   alpha=0.001, num_iters=90000) -> np.array:
     """
     Perform logistic regression without normalizing data.
 
@@ -104,8 +106,7 @@ def not_normolized(Xdata: pd.DataFrame, X_orig: np.array, y: np.array, m: int, s
     """
     X, y, theta = initialize_log_reg_params(X_orig, y, m)
     J, grad_J = compute_cost(X, y, theta)
-    alpha = 0.001
-    num_iters = 90000
+
     theta, J_iter = grad_descent_logreg(X, y, theta, alpha, num_iters)
 
     plt.figure()
@@ -154,6 +155,7 @@ def normlized(Xdata: pd.DataFrame, X_orig: np.array, y: np.array, m: int) -> tup
     plt.title("Decision Boundary (Normalized)")
 
     return theta, meanX, std_deviationX
+
 
 def main() -> None:
     """
