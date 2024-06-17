@@ -60,8 +60,24 @@ def quad_logistic_regression(X, y, alpha=0.0001, num_iters=90000):
 
 def predict_log_reg(X, theta):
     """Predict binary labels using logistic regression."""
-    return (sigmoid(X @ theta) >= 0.5).astype(int)
+    return (sigmoid(np.dot(X, theta)) >= 0.5).astype(int)
 
+
+
+def test_results(correct_linear: float,  y_test: np.array, accuracy_linear:float, correct_quad:float, accuracy_quad:float) -> None:
+    """
+        Print test results and accuracy.
+    :param correct_linear:
+    :param y_test:
+    :param accuracy_linear:
+    :param correct_quad:
+    :param accuracy_quad:
+    :return:
+    """
+    print(f"Linear Model: {correct_linear} out of {y_test.size} correctly classified.")
+    print(f"Linear Model Accuracy: {accuracy_linear * 100:.2f}%")
+    print(f"Quadratic Model: {correct_quad} out of {y_test.size} correctly classified.")
+    print(f"Quadratic Model Accuracy: {accuracy_quad * 100:.2f}%")
 
 def test(theta_linear, theta_quad):
     """Test linear and quadratic models on test data, print accuracy, and plot results."""
@@ -70,27 +86,24 @@ def test(theta_linear, theta_quad):
     y_test = Xdata.iloc[:, -1].values
     m = X_test.shape[0]
 
-    # Linear model prediction
+
     X_test_linear = add_onec_vec(X_test, m)
     y_pred_linear = predict_log_reg(X_test_linear, theta_linear)
     correct_linear = np.sum(y_pred_linear.flatten() == y_test)
     accuracy_linear = correct_linear / y_test.size
 
-    # Quadratic model prediction
+
     X_test_quad = transform_features_quadratic(X_test)
     y_pred_quad = predict_log_reg(X_test_quad, theta_quad)
     correct_quad = np.sum(y_pred_quad.flatten() == y_test)
     accuracy_quad = correct_quad / y_test.size
 
-    print(f"Linear Model: {correct_linear} out of {y_test.size} correctly classified.")
-    print(f"Linear Model Accuracy: {accuracy_linear * 100:.2f}%")
-    print(f"Quadratic Model: {correct_quad} out of {y_test.size} correctly classified.")
-    print(f"Quadratic Model Accuracy: {accuracy_quad * 100:.2f}%")
+    test_results(correct_linear, y_test, accuracy_linear, correct_quad, accuracy_quad)
 
-    # Plot Linear Model decision boundary
+
     plot_log_reg_line(X_test_linear, y_test.reshape((y_test.shape[0], 1)), theta_linear, 'go', 'rd')
 
-    # Plot Quadratic Model decision boundary
+
     plt.figure()
     plot_log_quad_line(X_test, y_test.reshape((y_test.shape[0], 1)), theta_quad)
 
