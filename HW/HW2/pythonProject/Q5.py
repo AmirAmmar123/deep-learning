@@ -1,5 +1,4 @@
 import matplotlib.pyplot as plt
-
 import numpy as np
 
 
@@ -21,7 +20,7 @@ def plot_points_and_boundary(X: np.array, y: np.array, theta: np.array, b=0):
              x1lh, x2lh, 'b-')
     plt.xlabel('x1')
     plt.ylabel('x2')
-    plt.title(f'Data')
+    plt.title('Data')
     plt.grid(axis='both')
     plt.show()
 
@@ -71,7 +70,7 @@ def perceptron_train(X: np.array, y: np.array, plotflag: bool, max_iter: int, in
             k += 1  # Increment error count
             # -----------------------------------------------------------------
             is_first_iter = 0
-            if plotflag :
+            if plotflag:
                 plot_points_and_boundary(X, y, theta, b)
                 plt.pause(0.01)
         else:
@@ -89,7 +88,7 @@ def load_dat() -> tuple[np.array, np.array]:
     Returns:
         tuple: A tuple containing two numpy arrays X and y.
     """
-    
+
     npzfile = np.load("./Material/Perceptron_exercise_2.npz")
     sorted(npzfile.files)
     X = npzfile['arr_0']
@@ -99,13 +98,14 @@ def load_dat() -> tuple[np.array, np.array]:
 
 def main() -> None:
     """
-    Executes the main logic of the program, including loading data, training the perceptron model, and printing the results.
+    Executes the main logic of the program, including loading data, training the perceptron model, and printing the
+    results.
 
     Returns:
         None
     """
     X, y = load_dat()
-    int_biases = [0,1,2,3, -10]
+    int_biases = [0, 1, 2, 3, -10]
     plotflag = True
     max_iter = 100
     for int_bias in int_biases:

@@ -9,18 +9,30 @@ def calculate_probabilities(english_test_grade: float, math_test_grade: float, n
     """
     Calculate and print the acceptance probabilities for given test grades.
     """
-    # Unnormalized
-    z_un = not_norm_theta[0] + not_norm_theta[1] * english_test_grade + not_norm_theta[2] * math_test_grade
-    sigmoid_un = 1 / (1 + np.exp(-z_un))
-    print("UNNORMALIZED PROBABILITY: The acceptance probability of this student is: ", sigmoid_un)
-
+    _extracted_from_calculate_probabilities_7(
+        not_norm_theta,
+        english_test_grade,
+        math_test_grade,
+        "UNNORMALIZED PROBABILITY: The acceptance probability of this student is: ",
+    )
     # Normalized
     normalized_english_test_grade = (english_test_grade - meanX[1]) / std_deviationX[1]
     normalized_math_test_grade = (math_test_grade - meanX[2]) / std_deviationX[2]
 
-    z_n = norm_theta[0] + norm_theta[1] * normalized_english_test_grade + norm_theta[2] * normalized_math_test_grade
-    sigmoid_n = 1 / (1 + np.exp(-z_n))
-    print("NORMALIZED PROBABILITY: The acceptance probability of this student is: ", sigmoid_n)
+    _extracted_from_calculate_probabilities_7(
+        norm_theta,
+        normalized_english_test_grade,
+        normalized_math_test_grade,
+        "NORMALIZED PROBABILITY: The acceptance probability of this student is: ",
+    )
+
+
+# TODO Rename this here and in `calculate_probabilities`
+def _extracted_from_calculate_probabilities_7(arg0, arg1, arg2, arg3):
+    # Unnormalized
+    z_un = arg0[0] + arg0[1] * arg1 + arg0[2] * arg2
+    sigmoid_un = 1 / (1 + np.exp(-z_un))
+    print(arg3, sigmoid_un)
 
 
 def load_data(path: str) -> tuple[pd.DataFrame, np.array, np.array, int]:

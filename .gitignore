@@ -11,3 +11,4 @@ HW/HW1/pythonProject/__pycache__/
 $/*.zip
 */*.zip
 HW/HW1/*.zip
+__pycache__/*

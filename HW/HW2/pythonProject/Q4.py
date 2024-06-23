@@ -6,6 +6,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import make_pipeline
 from typing import List, Tuple
 
+
 def three_binary_classification(X: np.ndarray, y: np.ndarray) -> List[make_pipeline]:
     """
     Train three binary classifiers using one-versus-all classification.
@@ -25,6 +26,7 @@ def three_binary_classification(X: np.ndarray, y: np.ndarray) -> List[make_pipel
         classifiers.append(clf)
 
     return classifiers
+
 
 def plot_decision_boundaries(X: np.ndarray, y: np.ndarray) -> None:
     """
@@ -63,7 +65,9 @@ def plot_decision_boundaries(X: np.ndarray, y: np.ndarray) -> None:
     plt.title('One-vs-All Logistic Regression on Iris Data')
     plt.show()
 
-def evaluate_classifiers(classifiers: List[make_pipeline], X_test: np.ndarray, y_test: np.ndarray) -> Tuple[np.ndarray, float]:
+
+def evaluate_classifiers(classifiers: List[make_pipeline], X_test: np.ndarray, y_test: np.ndarray) -> Tuple[
+    np.ndarray, float]:
     """
     Predict and calculate the error rate using the trained classifiers.
 
@@ -88,6 +92,7 @@ def evaluate_classifiers(classifiers: List[make_pipeline], X_test: np.ndarray, y
     error_rate = 1 - correct_predictions / len(y_test)
 
     return predicted_labels, error_rate
+
 
 def main() -> None:
     """
@@ -119,6 +124,7 @@ def main() -> None:
 
     # Plot decision boundaries for the first two features as an example
     plot_decision_boundaries(X, y)  # Only for visualization purposes
+
 
 if __name__ == '__main__':
     main()
