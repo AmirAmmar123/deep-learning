@@ -12,3 +12,5 @@ $/*.zip
 */*.zip
 HW/HW1/*.zip
 __pycache__/*
+__pycache__/
+

@@ -87,7 +87,7 @@ def main() -> None:
     X_test, y_test = X[test_indices], y[test_indices]
 
     # Train the classifiers
-    alpha = 0.17
+    alpha = 0.09
     num_iters = 2500
     num_labels = 3
     all_theta = one_vs_all(X_train, y_train, num_labels, alpha, num_iters)
