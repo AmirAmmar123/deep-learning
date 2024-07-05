@@ -27,7 +27,10 @@ inertia = np.zeros((11,))
 for k in range(1, 11):
     kmeans = KMeans(n_clusters=k, n_init=10, random_state=42)
     y_pred = kmeans.fit_predict(X)
+    # saving the best inertia so far
     inertia[k] = kmeans.inertia_
+    print(kmeans.cluster_centers_)
+    print('-------------Centroids with 2d features-------------------')
 
 plt.plot(inertia[1:])
 plt.show()

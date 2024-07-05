@@ -22,13 +22,41 @@ def knn(x_test: np.ndarray, x_train: np.ndarray, y_train: np.ndarray, k: int, fe
 
     for test_sample in x_test:
         distances = np.linalg.norm(x_train[:, features] - test_sample[features], axis=1)
+
+        # Get the indices of the k nearest neighbors
         k_nearest_indices = np.argsort(distances)[:k]
+
+        # Get the labels of the k nearest neighbors
         k_nearest_labels = y_train[k_nearest_indices]
 
-        # Find the most common label (mode) in the k nearest neighbors
-        unique_labels, counts = np.unique(k_nearest_labels, return_counts=True)
-        most_common_label = unique_labels[np.argmax(counts)]
+        # get a unique labels array, and the corresponding count
+        # example in case of k nearest labels = [1, 1, 0], the output will be
+        # unique_labels = [1, 0] and counts = [2, 1]
+        # the most common label is 1, so the prediction for the test sample is 1.
 
+        unique_labels, counts = np.unique(k_nearest_labels, return_counts=True)
+
+        #most_common_label = unique_labels[np.argmax(counts)]
+
+        k_nearest_distances = distances[k_nearest_indices]
+
+        # Find the indices of the maximum counts
+        max_count_indices = np.where(counts == counts.max())[0]
+
+        if len(max_count_indices) > 1:
+            # There is a tie, calculate the sum of distances for each class with the max count
+            sum_distances = {label: 0 for label in unique_labels[max_count_indices]}
+            for idx in range(k):
+                if k_nearest_labels[idx] in sum_distances:
+                    sum_distances[k_nearest_labels[idx]] += k_nearest_distances[idx]
+
+            # Choose the label with the minimal sum of distances
+            most_common_label = min(sum_distances, key=sum_distances.get)
+        else:
+            # No tie, choose the label with the maximum count
+            most_common_label = unique_labels[max_count_indices[0]]
+
+        # sum of the correct predictions so far
         correct_predictions += most_common_label == test_sample[-1]
 
     return correct_predictions / len(x_test) * 100
@@ -47,10 +75,11 @@ def add_label(arr: np.ndarray, label: int) -> np.ndarray:
     return np.hstack((arr, labels))
 
 
-def pick_up(data: pd.DataFrame, pick_Adelie: int, pick_Chinstrap: int, pick_Gentoo: int, headers: List) -> Tuple[
-    np.ndarray, np.ndarray]:
+def pick_up(data: pd.DataFrame, pick_Adelie: int, pick_Chinstrap: int, pick_Gentoo: int, headers: List) \
+        -> Tuple[Any, Any]:
     """
-    Constructs test and training matrices with labels for penguin species based on the provided data and selection criteria.
+    Constructs test and training matrices with labels for penguin species based on the provided data and selection
+    criteria.
 
     Args:
         data (pd.DataFrame): Input DataFrame containing penguin data.
@@ -107,11 +136,11 @@ def main() -> None:
 
     HEADERS1 = ["culmen_length_mm", "culmen_depth_mm", "flipper_length_mm", "body_mass_g"]
     data = load_penguins_data()
-    test_mat, train_mat = pick_up(data, pick_Adelie=100, pick_Chinstrap=50, pick_Gentoo=34, headers=HEADERS1)
+    X_test, train_mat = pick_up(data, pick_Adelie=100, pick_Chinstrap=68, pick_Gentoo=34, headers=HEADERS1)
 
     X_train = train_mat[:, :-1]
     y_train = train_mat[:, -1]
-    X_test = test_mat
+
     FEATURES1 = [0, 1, 2, 3]
     FEATURES2 = [0, 2]
 
@@ -119,13 +148,13 @@ def main() -> None:
         accuracy = knn(X_test, X_train, y_train, k,
                        FEATURES2)
         print(f'Accuracy for k={k}: {accuracy:.2f}%')
-    print(f'Headers chosen {[HEADERS1[i] for i in FEATURES2]}\n')
+    print(f'Headers chosen {', '.join(HEADERS1[i] for i in FEATURES2)}\n')
 
     for k in [1, 3, 5]:
         accuracy = knn(X_test, X_train, y_train, k,
                        FEATURES1)
         print(f'Accuracy for k={k}: {accuracy:.2f}%')
-    print(f'Headers chosen {[HEADERS1[i] for i in FEATURES1]}')
+    print(f'Headers chosen {', '.join(HEADERS1[i] for i in FEATURES1)}')
 
 
 if __name__ == "__main__":
