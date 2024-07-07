@@ -136,7 +136,7 @@ def main() -> None:
 
     HEADERS1 = ["culmen_length_mm", "culmen_depth_mm", "flipper_length_mm", "body_mass_g"]
     data = load_penguins_data()
-    X_test, train_mat = pick_up(data, pick_Adelie=100, pick_Chinstrap=68, pick_Gentoo=34, headers=HEADERS1)
+    X_test, train_mat = pick_up(data, pick_Adelie=100, pick_Chinstrap=50, pick_Gentoo=80, headers=HEADERS1)
 
     X_train = train_mat[:, :-1]
     y_train = train_mat[:, -1]

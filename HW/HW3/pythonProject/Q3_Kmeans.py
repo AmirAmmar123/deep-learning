@@ -6,8 +6,6 @@ from time import sleep
 from Q1_knn import load_penguins_data, pick_up
 
 
-
-
 class Kmeans:
     """
     Represents a KMeans clustering algorithm with methods for initialization, centroid calculation, assigning samples
@@ -94,8 +92,6 @@ class Kmeans:
                 return self.labels
             self.local_min = self.error
 
-
-
     def calc_error(self) -> float | int:
         """
     Calculates the error of the clustering based on the distance between data points and their assigned centroids.
@@ -152,14 +148,16 @@ class Kmeans:
         self.labels = np.zeros(self.Xdata.shape[0], dtype=int)
         # self.plot_init(f'Cluster plot init #{self.restart}')
 
-    def predict(self, Xtest: np.array ) -> np.array:
+    def predict(self, Xtest: np.array) -> np.array:
         pass
 
 
-def test(train_mat,  FEATURES, title):
+def test(train_mat, FEATURES, title):
     _process_kmeans(
         train_mat, FEATURES, title
     )
+
+
 def main() -> None:
     """
     Executes the main process of the KMeans clustering algorithm on penguins data with different sets of features.
@@ -170,9 +168,11 @@ def main() -> None:
 
     HEADERS = ["culmen_length_mm", "culmen_depth_mm", "flipper_length_mm", "body_mass_g"]
     penguins_data = load_penguins_data()
-    test_mat, train_mat = pick_up(penguins_data, pick_Adelie=146, pick_Chinstrap=68, pick_Gentoo=120, headers=HEADERS)
-
+    test_mat, train_mat = pick_up(penguins_data, pick_Adelie=100, pick_Chinstrap=50, pick_Gentoo=80, headers=HEADERS)
+    plt.scatter(train_mat[:, 1], train_mat[:, 0], c=train_mat[:, -1],cmap='viridis', alpha=0.5)
+    plt.show()
     FEATURES1 = [0, 2]
+
     title1 = 'Cluster Plot final with 2 features'
     FEATURES2 = [0, 1, 2, 3]
     title2 = 'Cluster Plot final with 4 features'
@@ -181,7 +181,6 @@ def main() -> None:
 
 
 def _process_kmeans(train_mat, features, title):
-
     kmeans = Kmeans(k=3, max_iter=100)
     y_label = kmeans.fit_predict(train_mat[:, features])
     kmeans.plot_clusters(title, y_label)
