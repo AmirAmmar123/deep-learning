@@ -6,7 +6,7 @@ Created on Tue Jun  7 14:15:07 2022
 """
 
 import tensorflow as tf
-import matplotlib.pyplot as plt
+
 
 fashion_mnist = tf.keras.datasets.fashion_mnist.load_data()
 (X_train_full, y_train_full), (X_test, y_test) = fashion_mnist
@@ -22,11 +22,16 @@ X_train, X_valid, X_test = X_train / 255., X_valid / 255., X_test / 255.
 class_names = ["T-shirt/top", "Trouser", "Pullover", "Dress", "Coat",
                "Sandal", "Shirt", "Sneaker", "Bag", "Ankle boot"]
 # for example the first 5 images represents:
-class_names[y_train[0]]
+# class_names[y_train[0]]
 
 # presenting some data
-for k in range(10):
-    plt.figure(1, figsize = [5,5])
-    plt.imshow(X_train[k,:,:], cmap = 'gray')
-    plt.suptitle(class_names[y_train[k]])
-    plt.pause(0.5)
+# for k in range(10):
+#     plt.figure(1, figsize = [5,5])
+#     plt.imshow(X_train[k,:,:], cmap = 'gray')
+#     plt.suptitle(class_names[y_train[k]])
+#     plt.pause(0.5)
+
+
+if __name__ == '__main__':
+    pass
+
